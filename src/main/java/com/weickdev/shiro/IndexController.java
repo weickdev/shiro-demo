@@ -2,6 +2,9 @@ package com.weickdev.shiro;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -25,6 +28,7 @@ public class IndexController {
     }
 
     @GetMapping("home")
+    @RequiresAuthentication
     public String home() {
         return "welcome to here.";
     }
@@ -36,16 +40,19 @@ public class IndexController {
     }
 
     @GetMapping("hello/{word}")
+    @RequiresAuthentication
     public String hello(@PathVariable String word) {
         return "hello " + word;
     }
 
     @GetMapping("admin")
+    @RequiresRoles({"admin"})
     public String admin() {
         return "you have admin role";
     }
 
     @GetMapping("user")
+    @RequiresPermissions({"user"})
     public String user() {
         return "you have user permission";
     }

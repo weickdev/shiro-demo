@@ -65,11 +65,8 @@ public class SimpleRealm {
     @Bean
     public ShiroFilterChainDefinition shiroFilterChainDefinition() {
         DefaultShiroFilterChainDefinition chainDefinition = new DefaultShiroFilterChainDefinition();
-        chainDefinition.addPathDefinition("/doLogin", "anon");
-        //下面是测试权限用的，角色admin和权限user
-        chainDefinition.addPathDefinition("/admin", "roles[admin]");
-        chainDefinition.addPathDefinition("/user", "perms[user]");
-        // 注意这里的顺序，如果/**放在前面，那么只要登录了就通过了，后面的权限判断就不生效了
+        // 如果要开启注释，这里至少要配置一个，其他controller方法就通过RequiresAuthentication，RequiresRoles，RequiresPermissions
+        // 来完成权限的控制
         chainDefinition.addPathDefinition("/**", "authc");
 
         return chainDefinition;

@@ -31,12 +31,7 @@ public class Application {
     @Bean
     public ShiroFilterChainDefinition shiroFilterChainDefinition() {
         DefaultShiroFilterChainDefinition chainDefinition = new DefaultShiroFilterChainDefinition();
-        chainDefinition.addPathDefinition("/doLogin", "anon");
-        chainDefinition.addPathDefinition("/admin", "roles[admin]");
-        chainDefinition.addPathDefinition("/user", "perms[user]");
-        // 注意这里的顺序，如果/**放在前面，那么只要登录了就通过了，后面的权限判断就不生效了
-        chainDefinition.addPathDefinition("/**", "authc");
-
+        chainDefinition.addPathDefinition("/**", "anon");
         return chainDefinition;
     }
 
